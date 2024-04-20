@@ -14,6 +14,30 @@ class ChirpController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function addToFavourites(Chirp $chirp): RedirectResponse
+     {
+          $favourites = session('favourites', collect([]));
+          $favourites->push($chirp);
+          session(['favourites' => $favourites]);
+          return redirect(route('chirps.index'));
+  
+  
+     }
+    
+        /**
+      * Show the Chirps in Favourites
+      */
+      public function favourites(): View
+      {
+           $favourites = session('favourites', collect([]));
+           return view('chirps.favourites', [
+   
+                 'chirps' => $favourites,
+   
+           ]);
+        }
+   
     public function index(): View
     {
         //
@@ -105,36 +129,8 @@ class ChirpController extends Controller
 
     
 }
-class ChirpController extends Controller
-{
 
    /**
     * Add the Chirp to Favourites
     */
-   public function addToFavourites(Chirp $chirp): RedirectResponse
-   {
-        $favourites = session('favourites', collect([]));
-        $favourites->push($chirp);
-        session(['favourites' => $favourites]);
-        return redirect(route('chirps.index'));
 
-
-   }
-
-      /**
-    * Show the Chirps in Favourites
-    */
-    public function favourites(): View
-    {
-         $favourites = session('favourites', collect([]));
-         return view('chirps.favourites', [
- 
-               'chirps' => $favourites,
- 
-         ]);
- 
- 
-    }
- 
-
-}
