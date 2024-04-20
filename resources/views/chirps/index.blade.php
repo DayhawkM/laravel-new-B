@@ -55,8 +55,17 @@
              {{ __('Delete') }}
          </x-dropdown-link>
      </form>
+     @endif
+                                    <form method="POST" action="{{ route('chirps.favourites.add', $chirp) }}">
+                                        @csrf
+                                        <x-dropdown-link :href="route('chirps.favourites.add', $chirp)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                            {{ __('Add to Favourites') }}
+                                        </x-dropdown-link>
+                                    </form>
+                                </x-slot>
+                            </x-dropdown>
                                     </x-slot>
-                                </x-dropdown>
+                                
                             @endif
 
                         </div>
